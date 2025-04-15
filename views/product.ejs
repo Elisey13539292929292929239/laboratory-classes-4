@@ -1,0 +1,26 @@
+<h1><%= product.name %></h1>
+
+<div>
+  <%= product.description %>
+</div>
+
+<button onclick="deleteProduct('<%= product.name %>')">Delete</button>
+
+<script>
+  function deleteProduct(name) {
+    fetch(`/products/${encodeURIComponent(name)}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (response.ok) {
+        window.location.href = "/products";
+      } else {
+        alert("Nie udało się usunąć produktu.");
+      }
+    })
+    .catch(err => {
+      console.error("Błąd:", err);
+      alert("Wystąpił błąd.");
+    });
+  }
+</script>
